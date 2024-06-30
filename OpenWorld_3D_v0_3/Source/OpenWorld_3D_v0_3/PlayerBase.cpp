@@ -16,6 +16,8 @@
 APlayerBase::APlayerBase()
 	: MaxHealthPoint(100.0f)
 	, HealthPoint(100.0f)
+	, DamagePower(10.0f)
+	, CheckDistance(8000.0f)
 	, WalkSpeed(500.0f)
 	, RunSpeed(1200.0f)
 	, bAnimAttack(false)
@@ -151,12 +153,11 @@ void APlayerBase::Attack(const FInputActionValue& Value)
 
 void APlayerBase::AttackAnimation()
 {
-	float speed 
-		= GetCharacterMovement()->Velocity.X * GetCharacterMovement()->Velocity.X
-		+ GetCharacterMovement()->Velocity.Y * GetCharacterMovement()->Velocity.Y;
-	if (speed > 700.0f)
+	float Speed
+		= GetVelocity().X * GetVelocity().X + GetVelocity().Y * GetVelocity().Y;
+	if (Speed > 700.0f)
 		PlayAnimMontage(AnimAttackRun);
-	else if(speed > 3.0f)
+	else if(Speed > 3.0f)
 		PlayAnimMontage(AnimAttackWalk);
 	else
 		PlayAnimMontage(AnimAttackIdle);
@@ -169,4 +170,16 @@ void APlayerBase::AttackAnimationDone()
 
 void APlayerBase::AttackLineTrace()
 {
+	FVector Start = GetFollowCamera()->GetComponentLocation();
+	FVector End = Start + GetFollowCamera()->GetForwardVector() * CheckDistance;
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, Params))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitResult.GetActor()->GetName());
+	}
+
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f, 0, 1.0f);
 }

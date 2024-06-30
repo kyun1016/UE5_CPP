@@ -28,6 +28,11 @@ private:
 		float MaxHealthPoint;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
 		float HealthPoint;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Attack", meta = (AllowPrivateAccess = "true"))
+		float DamagePower;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Attack", meta = (AllowPrivateAccess = "true"))
+		float CheckDistance;
+
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 		float WalkSpeed;
