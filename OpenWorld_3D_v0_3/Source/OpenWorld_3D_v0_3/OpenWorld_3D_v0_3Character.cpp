@@ -17,7 +17,16 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 // AOpenWorld_3D_v0_3Character
 
 AOpenWorld_3D_v0_3Character::AOpenWorld_3D_v0_3Character()
-{
+{   
+	// GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationYaw = false;
+
+	// GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...    
+	// GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
+
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
