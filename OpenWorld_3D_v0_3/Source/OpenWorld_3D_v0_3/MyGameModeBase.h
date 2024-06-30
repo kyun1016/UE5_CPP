@@ -9,7 +9,8 @@
 /**
  * 
  */
-UCLASS(minimalapi)
+// UCLASS(minimalapi)
+UCLASS()
 class OPENWORLD_3D_V0_3_API AMyGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()

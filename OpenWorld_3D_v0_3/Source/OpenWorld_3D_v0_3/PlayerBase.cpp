@@ -14,6 +14,11 @@
 
 // Sets default values
 APlayerBase::APlayerBase()
+	: MaxHealthPoint(100.0f)
+	, HealthPoint(100.0f)
+	, WalkSpeed(500.0f)
+	, RunSpeed(1200.0f)
+	, bAnimAttack(false)
 {
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -63,6 +68,16 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerBase::Look);
+
+		// Zooming
+		EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Started, this, &APlayerBase::Zoom);
+
+		// Dash
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &APlayerBase::Dash);
+		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Completed, this, &APlayerBase::Dash);
+
+		// Attack
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &APlayerBase::Attack);
 	}
 	else
 	{
@@ -104,4 +119,54 @@ void APlayerBase::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void APlayerBase::Zoom(const FInputActionValue& Value)
+{
+	CameraBoom->SocketOffset.Y *= -1;
+}
+
+void APlayerBase::Dash(const FInputActionValue& Value)
+{
+	bool bPressRun = Value.Get<bool>();
+	if (bPressRun)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = RunSpeed;
+	}
+	else
+	{
+		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	}
+}
+
+void APlayerBase::Attack(const FInputActionValue& Value)
+{
+	if (bAnimAttack)
+		return;
+
+	bAnimAttack = true;
+	AttackAnimation();
+	AttackLineTrace();
+}
+
+void APlayerBase::AttackAnimation()
+{
+	float speed 
+		= GetCharacterMovement()->Velocity.X * GetCharacterMovement()->Velocity.X
+		+ GetCharacterMovement()->Velocity.Y * GetCharacterMovement()->Velocity.Y;
+	if (speed > 700.0f)
+		PlayAnimMontage(AnimAttackRun);
+	else if(speed > 3.0f)
+		PlayAnimMontage(AnimAttackWalk);
+	else
+		PlayAnimMontage(AnimAttackIdle);
+}
+
+void APlayerBase::AttackAnimationDone()
+{
+	bAnimAttack = false;
+}
+
+void APlayerBase::AttackLineTrace()
+{
 }

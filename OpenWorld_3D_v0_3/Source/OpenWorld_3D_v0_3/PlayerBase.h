@@ -11,6 +11,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+class UAnimMontage;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -20,8 +21,30 @@ class OPENWORLD_3D_V0_3_API APlayerBase : public ACharacter
 {
 	GENERATED_BODY()
 
-		/** Camera boom positioning the camera behind the character */
-		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		APlayerBase();
+
+private:
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
+		float MaxHealthPoint;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
+		float HealthPoint;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+		float WalkSpeed;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+		float RunSpeed;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "Animation", meta = (AllowPrivateAccess = "true"))
+		UAnimMontage* AnimAttackRun;
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "Animation", meta = (AllowPrivateAccess = "true"))
+		UAnimMontage* AnimAttackWalk;
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "Animation", meta = (AllowPrivateAccess = "true"))
+		UAnimMontage* AnimAttackIdle;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Animation", meta = (AllowPrivateAccess = "true"))
+		float bAnimAttack;
+
+	/** Camera boom positioning the camera behind the character */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
@@ -32,30 +55,37 @@ class OPENWORLD_3D_V0_3_API APlayerBase : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		UInputMappingContext* DefaultMappingContext;
 
-	/** Jump Input Action */
+	/** Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		UInputAction* JumpAction;
-
-	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		UInputAction* MoveAction;
-
-	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 		UInputAction* LookAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* ZoomAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* DashAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* AttackAction;
 
-public:
-	APlayerBase();
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 
 protected:
-
-	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
-
-	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+	void Zoom(const FInputActionValue& Value);
+	void Dash(const FInputActionValue& Value);
+	void Attack(const FInputActionValue& Value);
 
+	void AttackAnimation();
+	UFUNCTION(BlueprintCallable, Category = "Animation")
+		void AttackAnimationDone();
+	void AttackLineTrace();
 
 protected:
 	// APawn interface
@@ -63,10 +93,4 @@ protected:
 
 	// To add mapping context
 	virtual void BeginPlay();
-
-public:
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
