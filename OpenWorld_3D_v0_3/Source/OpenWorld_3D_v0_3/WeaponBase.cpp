@@ -6,4 +6,5 @@
 // Sets default values
 AWeaponBase::AWeaponBase()
 {
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CustomStaticMesh"));
 }

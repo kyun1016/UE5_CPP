@@ -15,4 +15,8 @@ public:
 	// Sets default values for this actor's properties
 	AWeaponBase();
 
+private:
+	UPROPERTY(VisibleAnywhere, Category = "ActorMeshComponents")
+	UStaticMeshComponent* StaticMesh;
+
 };
