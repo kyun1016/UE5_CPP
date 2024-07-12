@@ -7,4 +7,5 @@
 AWeaponBase::AWeaponBase()
 {
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CustomStaticMesh"));
+	// StaticMesh->SetMobility(EComponentMobility::Movable);
 }

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+// #include "Components/StaticMeshComponent.h"
 #include "WeaponBase.generated.h"
 
 UCLASS()
@@ -16,7 +17,7 @@ public:
 	AWeaponBase();
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "ActorMeshComponents")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* StaticMesh;
 
 };
