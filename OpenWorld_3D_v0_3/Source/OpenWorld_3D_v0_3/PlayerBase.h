@@ -24,16 +24,6 @@ class OPENWORLD_3D_V0_3_API APlayerBase : public ACharacter
 		APlayerBase();
 
 private:
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
-		float MaxHealthPoint;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Health", meta = (AllowPrivateAccess = "true"))
-		float HealthPoint;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Attack", meta = (AllowPrivateAccess = "true"))
-		float DamagePower;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Attack", meta = (AllowPrivateAccess = "true"))
-		float CheckDistance;
-
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 		float WalkSpeed;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))

@@ -14,11 +14,7 @@
 
 // Sets default values
 APlayerBase::APlayerBase()
-	: MaxHealthPoint(100.0f)
-	, HealthPoint(100.0f)
-	, DamagePower(10.0f)
-	, CheckDistance(8000.0f)
-	, WalkSpeed(500.0f)
+	: WalkSpeed(500.0f)
 	, RunSpeed(1200.0f)
 	, bAnimAttack(false)
 {
@@ -172,7 +168,7 @@ void APlayerBase::AttackAnimationDone()
 void APlayerBase::AttackLineTrace()
 {
 	FVector Start = GetFollowCamera()->GetComponentLocation();
-	FVector End = Start + GetFollowCamera()->GetForwardVector() * CheckDistance;
+	FVector End = Start + GetFollowCamera()->GetForwardVector() * 1100.0f;
 	FHitResult HitResult;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
