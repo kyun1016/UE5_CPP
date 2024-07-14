@@ -91,6 +91,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 		void AttackAnimationDone();
 	void AttackLineTrace();
+public:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Event")
+	void AttackDone();
 
 protected:
 	// APawn interface

@@ -149,6 +149,7 @@ void APlayerBase::Attack(const FInputActionValue& Value)
 	bAnimAttack = true;
 	AttackAnimation();
 	AttackLineTrace();
+	AttackDone();
 }
 
 void APlayerBase::AttackAnimation()
@@ -182,4 +183,8 @@ void APlayerBase::AttackLineTrace()
 	}
 
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f, 0, 1.0f);
+}
+
+void APlayerBase::AttackDone_Implementation()
+{
 }
