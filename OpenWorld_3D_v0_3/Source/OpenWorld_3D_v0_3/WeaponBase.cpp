@@ -8,4 +8,6 @@ AWeaponBase::AWeaponBase()
 {
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CustomStaticMesh"));
 	// StaticMesh->SetMobility(EComponentMobility::Movable);
+	// StaticMesh->GetBodyInstance()->bUseCCD = true;
+	StaticMesh->SetCollisionProfileName("NoCollision");
 }

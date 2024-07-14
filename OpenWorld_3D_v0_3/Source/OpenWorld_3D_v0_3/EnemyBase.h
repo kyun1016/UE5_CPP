@@ -25,6 +25,13 @@ private:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Equip", meta = (AllowPrivateAccess = "true"))
 	bool bIsWieldingWeapon;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+		float MaxHealth;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+		float Health;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	bool bIsDead;
+
 	FDele_Single Fuc_DeleSingle;
 protected:
 

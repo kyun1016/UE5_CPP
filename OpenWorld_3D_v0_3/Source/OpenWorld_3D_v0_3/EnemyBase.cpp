@@ -5,5 +5,9 @@
 
 // Sets default values
 AEnemyBase::AEnemyBase()
+	: bIsWieldingWeapon(false)
+	, bIsDead(false)
+	, MaxHealth(100.0f)
+	, Health(100.0f)
 {
 }
