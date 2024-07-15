@@ -15,6 +15,7 @@ class UAnimMontage;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+DECLARE_EVENT(APlayerBase, FAttackEvent);
 
 UCLASS(config = Game)
 class OPENWORLD_3D_V0_3_API APlayerBase : public ACharacter
@@ -82,8 +83,13 @@ protected:
 		void AttackAnimationDone();
 	void AttackLineTrace();
 public:
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Event")
-	void AttackDone();
+	//// UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Event")
+	//UFUNCTION(BlueprintImplementableEvent, Category = "Event")
+	//void AttackDone();
+
+	// UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintReadOnly)
+		FAttackEvent AttackEvent;
 
 protected:
 	// APawn interface
