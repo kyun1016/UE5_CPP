@@ -145,8 +145,10 @@ void APlayerBase::Attack(const FInputActionValue& Value)
 	bAnimAttack = true;
 	AttackAnimation();
 	AttackLineTrace();
-	AttackEvent.Broadcast();
-	// AttackDone();
+	UE_LOG(LogTemp, Display, TEXT("AttackDone Start!"));
+	AttackDone();
+	UE_LOG(LogTemp, Display, TEXT("AttackDone Finish!"));
+	// Fuc_Dynamic.Broadcast();
 }
 
 void APlayerBase::AttackAnimation()
@@ -176,7 +178,7 @@ void APlayerBase::AttackLineTrace()
 
 	if (GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, Params))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitResult.GetActor()->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitResult.GetActor()->GetName());
 	}
 
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f, 0, 1.0f);
@@ -186,3 +188,8 @@ void APlayerBase::AttackLineTrace()
 //{
 //	UE_LOG(LogTemp, Warning, TEXT("AttackDone Event!"));
 //}
+
+void APlayerBase::AttackDone_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("AttackDone Implementation Event!"));
+}
