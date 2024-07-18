@@ -14,7 +14,8 @@
 
 // Sets default values
 APlayerBase::APlayerBase()
-	: WalkSpeed(500.0f)
+	: DefaultWalkSpeed(500.0f)
+	, MagicWalkSpeed(230.0f)
 	, RunSpeed(1200.0f)
 	, bAnimAttack(false)
 {
@@ -133,7 +134,7 @@ void APlayerBase::Dash(const FInputActionValue& Value)
 	}
 	else
 	{
-		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+		GetCharacterMovement()->MaxWalkSpeed = DefaultWalkSpeed;
 	}
 }
 

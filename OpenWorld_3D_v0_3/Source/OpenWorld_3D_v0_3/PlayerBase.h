@@ -29,7 +29,9 @@ class OPENWORLD_3D_V0_3_API APlayerBase : public ACharacter
 
 private:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
-		float WalkSpeed;
+		float DefaultWalkSpeed;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+		float MagicWalkSpeed;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 		float RunSpeed;
 
