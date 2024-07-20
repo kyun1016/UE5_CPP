@@ -75,5 +75,7 @@ OpenWorld_3D*/DerivedDataCache/*
 
 # Assets
 *Stylized_Nature_ExampleScene.umap
-OpenWorld_3D*/Content/
-OpenWorld_3D*/Content/!Source/
+
+OpenWorld_3D*/Content/*
+!OpenWorld_3D*/Content/Source/
+#!OpenWorld_3D*/Content/Source/**
