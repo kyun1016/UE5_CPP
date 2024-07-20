@@ -95,8 +95,8 @@ public:
 	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "Event")
 		FDele_Dynamic_OneParam Fuc_Dynamic_OneParam;
 
-	// UFUNCTION(BlueprintImplementableEvent)
-	UFUNCTION(BlueprintNativeEvent)
+	// UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintImplementableEvent)
 	void AttackDone();
 	// virtual void AttackDone_Implementation();
 	
