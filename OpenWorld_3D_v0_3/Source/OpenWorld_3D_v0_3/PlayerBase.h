@@ -42,7 +42,9 @@ private:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "Animation", meta = (AllowPrivateAccess = "true"))
 		UAnimMontage* AnimAttackIdle;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Animation", meta = (AllowPrivateAccess = "true"))
-		float bAnimAttack;
+		bool bAnimAttack;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Animation", meta = (AllowPrivateAccess = "true"))
+		bool bCanMove;
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

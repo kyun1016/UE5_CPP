@@ -18,6 +18,7 @@ APlayerBase::APlayerBase()
 	, MagicWalkSpeed(230.0f)
 	, RunSpeed(1200.0f)
 	, bAnimAttack(false)
+	, bCanMove(true)
 {
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -69,14 +70,14 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerBase::Look);
 
 		// Zooming
-		EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Started, this, &APlayerBase::Zoom);
+		// EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Started, this, &APlayerBase::Zoom);
 
 		// Dash
 		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Started, this, &APlayerBase::Dash);
 		EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Completed, this, &APlayerBase::Dash);
 
 		// Attack
-		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &APlayerBase::Attack);
+		// EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &APlayerBase::Attack);
 	}
 	else
 	{
@@ -86,6 +87,8 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void APlayerBase::Move(const FInputActionValue& Value)
 {
+	if (!bCanMove)
+		return;
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
@@ -142,11 +145,11 @@ void APlayerBase::Attack(const FInputActionValue& Value)
 {
 	if (bAnimAttack)
 		return;
-
-	bAnimAttack = true;
-	AttackAnimation();
-	AttackLineTrace();
+	// AttackAnimation();
+	// AttackLineTrace();
+	UE_LOG(LogTemp, Warning, TEXT("AttackDone Event Start!"));
 	AttackDone();
+	UE_LOG(LogTemp, Warning, TEXT("AttackDone Event End!"));
 }
 
 void APlayerBase::AttackAnimation()
